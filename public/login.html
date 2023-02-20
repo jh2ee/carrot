@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market</title>
+    <link href="main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyArWgV9U1c-hI0a08V9fXMul8jPxiQsvZ8",
+            authDomain: "carrot-27575.firebaseapp.com",
+            projectId: "carrot-27575",
+            storageBucket: "carrot-27575.appspot.com",
+            messagingSenderId: "370129128234",
+            appId: "1:370129128234:web:ac3f76f6c9daca63f9ac53"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" onclick="location.href='index.html'">Market</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="#" onclick="location.href='index.html'">Home</a>
+              <a class="nav-link" href="#" onclick="location.href='upload.html'">Upload</a>
+              <a class="nav-link" href="#" onclick="location.href='login.html'">Login</a>
+              <a class="nav-link disabled">Disabled</a>
+            </div>  
+          </div>
+        </div>
+      </nav>
+
+    <div class="container mt-3">
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="name" id="name-new">
+        </div>
+        <div class="mb-3">
+          <input type="email" class="form-control" placeholder="email" id="email-new">
+        </div>
+        <div class="mb-3">
+          <input type="password" class="form-control" placeholder="password" id="pw-new">
+        </div>
+        <button type="submit" class="btn btn-primary" id="login" href="#" onclick="location.href='index.html'">Login</button>
+        <button type="submit" class="btn btn-primary" id="register" href="#" onclick="location.href='index.html'">Register</button>
+     </div>
+
+    <script>
+        const db=firebase.firestore();
+        const storage=firebase.storage();
+
+        $('#register').click(function(){
+            var Email=$('#email-new').val();
+            var PW=$('#pw-new').val();
+
+            firebase.auth().createUserWithEmailAndPassword(Email,PW).then((result)=>{
+                console.log(result)
+                console.log(result.user)
+            })
+        })
+
+
+    </script>
+
+</body>
+</html>

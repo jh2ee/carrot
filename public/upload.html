@@ -53,7 +53,7 @@
         <textarea class="form-control mt-2" id="content" placeholder="content"></textarea>
         <input type="text" class="form-control mt-2" id="price" placeholder="price">
         <input class="form-control mt-2" type="file" id="image">
-        <button class="btn btn-danger mt-3" id="send" href="#" onclick="location.href='index.html'">Upload</button>
+        <button class="btn btn-danger mt-3" id="send">Upload</button>
     </div>
 
 
@@ -61,48 +61,46 @@
         const db=firebase.firestore();
         const storage=firebase.storage();
 
+        var file = document.querySelector('#image').files[0];
+        var storageRef = storage.ref();
+        var Path = storageRef.child('image/' + file )
+        var Upload = Path.put(file)
+
         $('#send').click(function(){
 
-            var file=document.querySelector('#image').filesp[0];
-            var storageRef=storage.ref();
-            var Path=storageRef.child('image/'+file.name);
-            var Upload=Path.put(file);
+            let day = ['일', '월', '화', '수', '목', '금', '토'];
+            let today = new Date();
+            let dateFormat = today.getFullYear() + '년 ' + (today.getMonth()+1) + '월 '+ today.getDate() + '일 ' + day[today.getDay()] + '요일 '
 
             Upload.on( 'state_changed', 
                 // 변화시 동작하는 함수 
                 null, 
-
                 //에러시 동작하는 함수
                 (error) => {
                 console.error('실패사유는', error);
                 }, 
-
                 // 성공시 동작하는 함수
                 () => {
-                    Upload.snapshot.ref.getDownloadURL().then((url) => {
+                Upload.snapshot.ref.getDownloadURL().then((url) => {
                     console.log('업로드된 경로는', url);
-                    var 상품={
+                    var Product={
                         제목:$('#title').val(),
                         가격:$('#price').val(),
                         내용:$('#content').val(),
-                        날짜:new Date(),
+                        날짜:dateFormat,
                         이미지:url
                     }
+                    db.collection('product').add(Product).then((result)=>{
+                        console.log(result)
+                        window.location.href="/index.html"
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
                 });
                 }
             );
-
-
-            db.collection('product').add(상품).then((result)=>{
-                console.log(result);
-                window.location.href="/index.html";
-            }).catch((err)=>{
-                console.log(err)
-                window.location.href="/index.html";
-            })
-
         })
-
+    
     </script>
 
 </body>

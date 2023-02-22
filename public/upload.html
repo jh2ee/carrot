@@ -61,12 +61,11 @@
         const db=firebase.firestore();
         const storage=firebase.storage();
 
-        var file = document.querySelector('#image').files[0];
-        var storageRef = storage.ref();
-        var Path = storageRef.child('image/' + file )
-        var Upload = Path.put(file)
-
         $('#send').click(function(){
+            var file = document.querySelector('#image').files[0];
+            var storageRef = storage.ref();
+            var Path = storageRef.child('image/' + file.name );
+            var Upload = Path.put(file)
 
             let day = ['일', '월', '화', '수', '목', '금', '토'];
             let today = new Date();
@@ -92,7 +91,8 @@
                     }
                     db.collection('product').add(Product).then((result)=>{
                         console.log(result)
-                        window.location.href="/index.html"
+                        //setTimeout(()=>window.location.href = "/index.html",500)
+                        window.location.href = "/index.html"
                     }).catch((err)=>{
                         console.log(err)
                     })

@@ -68,12 +68,12 @@
       const db = firebase.firestore();
       const storage=firebase.storage();
 
-      db.collection('product').get().then((결과)=>{
-        결과.forEach((doc)=>{
+      db.collection('product').get().then((result)=>{
+        result.forEach((doc)=>{
           console.log(doc.data());
           var template = 
           `<div class="product">
-              <div class="thumbnail" style="background-image: url('https://via.placeholder.com/350')"></div>
+              <div class="thumbnail" style="background-image: url('${doc.data().이미지}')"></div>
               <div class="flex-grow-1 p-4">
                 <h5 class="title">${doc.data().제목}</h5>
                 <p class="date">${doc.data().날짜}</p>

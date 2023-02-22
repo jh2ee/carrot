@@ -91,8 +91,7 @@
                     }
                     db.collection('product').add(Product).then((result)=>{
                         console.log(result)
-                        //setTimeout(()=>window.location.href = "/index.html",500)
-                        window.location.href = "/index.html"
+                       window.location.href = "/index.html",500
                     }).catch((err)=>{
                         console.log(err)
                     })
